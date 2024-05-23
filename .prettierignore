@@ -1,0 +1,12 @@
+build
+
+backup
+
+.vscode
+
+.next
+
+node_modules
+
+.eslintrc.json
+.prettierrc.js
