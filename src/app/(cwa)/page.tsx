@@ -1,4 +1,5 @@
 import Heading from '@/components/Commons/Heading';
+import ProductCard from '@/components/Commons/ProductCard';
 import AboutCard from '@/components/Section/Home/AboutCard';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -108,18 +109,23 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="our-products" className="bg-slate-50">
+      <section id="our-products">
         <div className="max-w-screen-xl mx-auto px-4 py-4 lg:py-28 lg:px-8">
           <Heading as="h2" className="mb-12">
             Our Products
           </Heading>
 
-          <div className="grid grid-cols-2 lg:grid-cols-5">
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6">
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
           </div>
         </div>
       </section>

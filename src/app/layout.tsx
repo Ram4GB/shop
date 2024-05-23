@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { Recursive } from 'next/font/google';
 import './globals.css';
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={recursive.className}>{children}</body>
+      <Toaster position="top-right" richColors duration={2000} style={{ ...recursive.style }} />
     </html>
   );
 }
