@@ -1,6 +1,8 @@
+import Heading from '@/components/Commons/Heading';
+import AboutCard from '@/components/Section/Home/AboutCard';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { BookOpen, Handshake, MessageSquareHeart, ShoppingBasket } from 'lucide-react';
+import { BookOpen, Handshake, ShoppingBasket } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -77,44 +79,50 @@ export default function Home() {
         </div>
       </div>
 
-      <div>
-        <div className="max-w-screen-xl mx-auto px-4 py-4 lg:py-28 lg:px-8">
-          <h2 className="text-4xl text-center text-slate-700 mb-4 font-semibold">About Us</h2>
+      <section id="about-us" className="bg-slate-100">
+        <div className="max-w-screen-xl mx-auto px-20 py-20 lg:py-28 lg:px-28">
+          <Heading as="h2" className="mb-12">
+            About Us
+          </Heading>
           <p className="leading-6 text-balance text-center text-slate-700 mb-10">
             At Green Leaf Coffee Shop, we blend nature with comfort to create a serene retreat for coffee lovers. Our
             mission is to provide a peaceful space where you can relax, unwind, and savor the moment.
           </p>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-4">
-            <div className="text-center cursor-pointer group">
-              <div className="w-28 h-28 rounded-full group-hover:bg-slate-700 ring-2 ring-slate-700 text-slate-700 group-hover:text-white flex justify-center items-center mx-auto mb-6">
-                <BookOpen size="36px" />
-              </div>
-              <h3 className="text-slate-700 font-medium text-2xl">Our Story</h3>
-              <p className="text-center max-w-64 text-slate-700 mx-auto">
-                Founded to offer a peaceful escape and foster community.
-              </p>
-            </div>
-            <div className="text-center cursor-pointer group">
-              <div className="w-28 h-28 rounded-full group-hover:bg-slate-700 ring-2 ring-slate-700 text-slate-700 group-hover:text-white flex justify-center items-center mx-auto mb-6">
-                <MessageSquareHeart size="36px" />
-              </div>
-              <h3 className="text-slate-700 font-medium text-2xl">Mission & Values</h3>
-              <p className="text-center max-w-64 text-slate-700 mx-auto">
-                Committed to sustainability, quality, and customer satisfaction.
-              </p>
-            </div>
-            <div className="text-center cursor-pointer group">
-              <div className="w-28 h-28 rounded-full group-hover:bg-slate-700 ring-2 ring-slate-700 text-slate-700 group-hover:text-white flex justify-center items-center mx-auto mb-6">
-                <Handshake size="36px" />
-              </div>
-              <h3 className="text-slate-700 font-medium text-2xl">Unique Experience</h3>
-              <p className="text-center max-w-64 text-slate-700 mx-auto">
-                Enjoy our lush décor and handcrafted beverages for a relaxing visit.
-              </p>
-            </div>
+            <AboutCard
+              icon={BookOpen}
+              title="Our Story"
+              description="Founded to offer a peaceful escape and foster community."
+            />
+            <AboutCard
+              icon={Handshake}
+              title="Unique Experience"
+              description="Enjoy our lush décor and handcrafted beverages for a relaxing visit."
+            />
+            <AboutCard
+              icon={Handshake}
+              title="Unique Experience"
+              description="Enjoy our lush décor and handcrafted beverages for a relaxing visit."
+            />
           </div>
         </div>
-      </div>
+      </section>
+
+      <section id="our-products" className="bg-slate-50">
+        <div className="max-w-screen-xl mx-auto px-4 py-4 lg:py-28 lg:px-8">
+          <Heading as="h2" className="mb-12">
+            Our Products
+          </Heading>
+
+          <div className="grid grid-cols-2 lg:grid-cols-5">
+            <div>1</div>
+            <div>1</div>
+            <div>1</div>
+            <div>1</div>
+            <div>1</div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

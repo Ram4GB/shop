@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="max-w-screen-xl mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-4">
           <div className="text-center lg:text-left">
-            <div className="relative w-20 h-20 mx-auto">
+            <div className="relative w-20 h-20 mx-auto lg:mx-0">
               <NodejsDark />
             </div>
             <p className="text-slate-700">

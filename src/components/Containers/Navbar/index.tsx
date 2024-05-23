@@ -15,8 +15,8 @@ const Navbar: FC<NavbarProps> = () => {
           <NodejsDark className="w-16 h-14 relative mix-blend-multiply" />
           <div className="ml-auto hidden md:flex items-center gap-6">
             <NavItem href="/">Home</NavItem>
-            <NavItem href="/about">About</NavItem>
-            <NavItem href="/products">Products</NavItem>
+            <NavItem href="/#about-us">About Us</NavItem>
+            <NavItem href="/#our-products">Our Products</NavItem>
             <span>|</span>
             <div className="items-center">
               <Link

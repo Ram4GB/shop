@@ -5,7 +5,13 @@ interface FooterHeadingProps extends PropsWithChildren, HTMLAttributes<HTMLDivEl
 
 const FooterHeading: FC<FooterHeadingProps> = ({ children, className, ...props }) => {
   return (
-    <h3 className={cn('text-lg font-semibold mb-4 text-slate-700', className)} {...props}>
+    <h3
+      className={cn(
+        'text-lg font-bold mb-4 text-slate-700 uppercase border-b-4 border-slate-700 w-fit lg:w-full lg:max-w-[50%]',
+        className,
+      )}
+      {...props}
+    >
       {children}
     </h3>
   );
