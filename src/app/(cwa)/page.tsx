@@ -2,6 +2,7 @@ import Heading from '@/components/Commons/Heading';
 import ProductCard from '@/components/Commons/ProductCard';
 import AboutCard from '@/components/Section/Home/AboutCard';
 import SceneCarousel from '@/components/Section/Home/SceneCarousel';
+import Testimonial from '@/components/Section/Home/Testimonial';
 import { buttonVariants } from '@/components/ui/button';
 import { Dialog } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
@@ -9,6 +10,7 @@ import { products } from '@/mock/products';
 import { BookOpen, Handshake, ShoppingBasket } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { recursive } from '../layout';
 
 export default function Home() {
   return (
@@ -44,7 +46,12 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center py-20">
             <div className="col-span-1">
               <div className="pr-9 text-center lg:text-left">
-                <h1 className="text-center lg:text-left text-6xl mb-3 text-slate-700 font-semibold">
+                <h1
+                  className={cn(
+                    'text-center lg:text-left text-6xl mb-3 text-slate-700 font-semibold',
+                    recursive.className,
+                  )}
+                >
                   A Tranquil <br />
                   Coffee Haven
                 </h1>
@@ -83,6 +90,32 @@ export default function Home() {
         </div>
       </div>
 
+      <section id="our-products">
+        <div className="max-w-screen-lg mx-auto px-4 py-20 lg:py-28 lg:px-8">
+          <Heading as="h2" className="mb-12">
+            Our Products
+          </Heading>
+          <Dialog>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {products.map((product) => (
+                <ProductCard key={product.id} item={product} />
+              ))}
+            </div>
+          </Dialog>
+          <div className="text-center">
+            <Link
+              href="/products"
+              className={cn(
+                buttonVariants({ variant: 'link' }),
+                'text-lg mx-auto font-bold text-center mt-4 underline underline-offset-4 uppercase inline-block',
+              )}
+            >
+              More products
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section id="about-us" className="bg-slate-100">
         <div className="max-w-screen-xl mx-auto px-20 py-20 lg:py-28 lg:px-28">
           <Heading as="h2" className="mb-12">
@@ -112,38 +145,21 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="our-products">
-        <div className="max-w-screen-lg mx-auto px-4 py-20 lg:py-28 lg:px-8">
-          <Heading as="h2" className="mb-12">
-            Our Products
-          </Heading>
-          <Dialog>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {products.map((product) => (
-                <ProductCard key={product.id} item={product} />
-              ))}
-            </div>
-          </Dialog>
-          <Link
-            href="/products"
-            className={cn(
-              buttonVariants({ variant: 'link' }),
-              'text-lg mx-auto block font-bold text-center mt-4 underline underline-offset-4 uppercase',
-            )}
-          >
-            More products
-          </Link>
-        </div>
-      </section>
-
-      <section id="feedback"></section>
-
-      <section id="image-grid" className="bg-slate-100">
+      <section id="image-grid">
         <div className="max-w-screen-lg mx-auto px-4 py-20 lg:py-28 lg:px-8">
           <Heading as="h2" className="mb-12">
             Our Views
           </Heading>
           <SceneCarousel />
+        </div>
+      </section>
+
+      <section id="testimonial" className="bg-slate-100">
+        <div className="max-w-screen-lg mx-auto px-4 py-20 lg:py-28 lg:px-8">
+          <Heading as="h2" className="mb-12">
+            Testimonials
+          </Heading>
+          <Testimonial />
         </div>
       </section>
     </>

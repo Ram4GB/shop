@@ -1,3 +1,4 @@
+import { recursive } from '@/app/layout';
 import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
 
@@ -29,6 +30,7 @@ const Heading: React.FC<HeadingProps> = ({ children, as: Tag, className, ...prop
           variant: Tag,
         }),
         className,
+        recursive.className,
       )}
       {...props}
     >

@@ -1,9 +1,10 @@
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
-import { Quicksand } from 'next/font/google';
+import { Quicksand, Recursive } from 'next/font/google';
 import './globals.css';
 
-const recursive = Quicksand({ weight: ['400', '500', '600', '700'], style: 'normal', subsets: ['latin'] });
+const quicksand = Quicksand({ weight: ['400', '500', '600', '700'], style: 'normal', subsets: ['latin'] });
+export const recursive = Recursive({ weight: ['400', '500', '600', '700'], style: 'normal', subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,8 +18,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={recursive.className}>{children}</body>
-      <Toaster position="top-right" richColors duration={2000} style={{ ...recursive.style }} />
+      <body className={quicksand.className}>{children}</body>
+      <Toaster position="top-right" richColors duration={2000} style={{ ...quicksand.style }} />
     </html>
   );
 }

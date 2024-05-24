@@ -35,12 +35,12 @@ const ImageCollection: React.FC<ImageCollectionProps> = ({
     >
       {items.map((item, index) => (
         <div key={index} className={cn('w-full relative h-[400px] mt-4', imageClassName?.(index))}>
-          <Image priority src={item} alt="" fill className="object-cover w-full h-full" />
+          <Image priority src={item} alt="" fill className="object-cover w-full h-full rounded-sm overflow-hidden" />
         </div>
       ))}
       {items.map((item, index) => (
         <div key={index} className={cn('w-full relative h-[400px] mt-4', imageClassName?.(index))}>
-          <Image priority src={item} alt="" fill className="object-cover w-full h-full" />
+          <Image priority src={item} alt="" fill className="object-cover w-full h-full rounded-sm overflow-hidden" />
         </div>
       ))}
     </div>
