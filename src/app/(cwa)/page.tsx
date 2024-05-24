@@ -1,6 +1,7 @@
 import Heading from '@/components/Commons/Heading';
 import ProductCard from '@/components/Commons/ProductCard';
 import AboutCard from '@/components/Section/Home/AboutCard';
+import SceneCarousel from '@/components/Section/Home/SceneCarousel';
 import { buttonVariants } from '@/components/ui/button';
 import { Dialog } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
@@ -135,7 +136,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Product detail */}
+      <section id="feedback"></section>
+
+      <section id="image-grid" className="bg-slate-100">
+        <div className="max-w-screen-lg mx-auto px-4 py-20 lg:py-28 lg:px-8">
+          <Heading as="h2" className="mb-12">
+            Our Views
+          </Heading>
+          <SceneCarousel />
+        </div>
+      </section>
     </>
   );
 }

@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import debounce from 'lodash.debounce';
-import { ShoppingCart } from 'lucide-react';
+import { Info, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
 import { FC, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
@@ -31,6 +31,10 @@ const ProductCard: FC<ProductCardProps> = ({ item }) => {
     toast.success('Product Added To Cart');
   };
 
+  const handleShowDetails = () => {
+    toast.info('Product Details');
+  };
+
   return (
     <Card className="shadow-sm group relative cursor-pointer overflow-hidden">
       <CardContent className="p-0">
@@ -54,10 +58,13 @@ const ProductCard: FC<ProductCardProps> = ({ item }) => {
 
       <div
         style={{ height: `calc(100% - ${imageHeight}px)` }}
-        className="bg-white absolute bottom-0 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 w-full p-3 flex justify-center items-center transition-all duration-200"
+        className="bg-white absolute bottom-0 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 w-full p-3 flex justify-center items-center transition-all duration-200 gap-2"
       >
+        <Button onClick={() => handleShowDetails()} variant="outline" className="py-4 rounded-full">
+          <Info />
+        </Button>
         <Button onClick={() => handleAddToCart()} variant="default" className="py-4 rounded-full">
-          <ShoppingCart className="mr-2" /> <span className="text-base font-bold">${item.price}.00</span>
+          <ShoppingCart />
         </Button>
       </div>
     </Card>
