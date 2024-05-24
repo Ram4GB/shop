@@ -5,12 +5,12 @@ import SceneCarousel from '@/components/Section/Home/SceneCarousel';
 import Testimonial from '@/components/Section/Home/Testimonial';
 import { buttonVariants } from '@/components/ui/button';
 import { Dialog } from '@/components/ui/dialog';
+import { recursive } from '@/configs/fonts';
 import { cn } from '@/lib/utils';
 import { products } from '@/mock/products';
 import { BookOpen, Handshake, ShoppingBasket } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { recursive } from '../layout';
 
 export default function Home() {
   return (

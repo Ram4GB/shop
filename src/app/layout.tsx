@@ -1,10 +1,7 @@
 import { Toaster } from '@/components/ui/sonner';
+import { quicksand } from '@/configs/fonts';
 import type { Metadata } from 'next';
-import { Quicksand, Recursive } from 'next/font/google';
 import './globals.css';
-
-const quicksand = Quicksand({ weight: ['400', '500', '600', '700'], style: 'normal', subsets: ['latin'] });
-export const recursive = Recursive({ weight: ['400', '500', '600', '700'], style: 'normal', subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
