@@ -2,7 +2,9 @@ import Heading from '@/components/Commons/Heading';
 import ProductCard from '@/components/Commons/ProductCard';
 import AboutCard from '@/components/Section/Home/AboutCard';
 import { buttonVariants } from '@/components/ui/button';
+import { Dialog } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+import { products } from '@/mock/products';
 import { BookOpen, Handshake, ShoppingBasket } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -68,7 +70,7 @@ export default function Home() {
             <div className="col-span-1">
               <div className="w-full max-w-[600px] aspect-square relative mx-auto">
                 <Image
-                  style={{ clipPath: 'url(#clipPath3)' }}
+                  style={{ clipPath: 'url(#clipPath1)' }}
                   fill
                   src="/image/hero.webp"
                   alt=""
@@ -110,25 +112,30 @@ export default function Home() {
       </section>
 
       <section id="our-products">
-        <div className="max-w-screen-xl mx-auto px-4 py-4 lg:py-28 lg:px-8">
+        <div className="max-w-screen-lg mx-auto px-4 py-20 lg:py-28 lg:px-8">
           <Heading as="h2" className="mb-12">
             Our Products
           </Heading>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-          </div>
+          <Dialog>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {products.map((product) => (
+                <ProductCard key={product.id} item={product} />
+              ))}
+            </div>
+          </Dialog>
+          <Link
+            href="/products"
+            className={cn(
+              buttonVariants({ variant: 'link' }),
+              'text-lg mx-auto block font-bold text-center mt-4 underline underline-offset-4 uppercase',
+            )}
+          >
+            More products
+          </Link>
         </div>
       </section>
+
+      {/* Product detail */}
     </>
   );
 }
