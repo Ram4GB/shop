@@ -12,6 +12,8 @@ import image8 from 'public/image/mock/image-grid/tomas-jasovsky-d5SZqLkpIrY-unsp
 import image9 from 'public/image/mock/image-grid/tyler-nix-YVdhzpHD7E8-unsplash.jpg';
 import { HTMLAttributes } from 'react';
 
+import styles from './index.module.css';
+
 interface ImageCollectionProps extends HTMLAttributes<HTMLDivElement> {
   items: StaticImageData[];
   duration?: number;
@@ -28,11 +30,7 @@ const ImageCollection: React.FC<ImageCollectionProps> = ({
   ...props
 }) => {
   return (
-    <div
-      className={cn('flex flex-col animate-image-grid-translate', className)}
-      style={{ '--duration': duration, '--delay': delay } as React.CSSProperties}
-      {...props}
-    >
+    <div className={cn('flex flex-col animate-image-grid-translate', className)} {...props}>
       {items.map((item, index) => (
         <div key={index} className={cn('w-full relative h-[400px] mt-4', imageClassName?.(index))}>
           <Image priority src={item} alt="" fill className="object-cover w-full h-full rounded-sm overflow-hidden" />
@@ -61,6 +59,7 @@ const SceneCarousel: React.FC<SceneCarouselProps> = () => {
     <div className="h-screen max-h-[900px] overflow-hidden relative">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <ImageCollection
+          className={cn(styles['animation-duration'])}
           items={[...col1, ...col3Group.flat(), ...col2]}
           imageClassName={(index) => {
             const isCol2 = index >= col1.length + col3.length;
@@ -87,7 +86,7 @@ const SceneCarousel: React.FC<SceneCarouselProps> = () => {
           }}
         />
         <ImageCollection
-          className="hidden md:flex"
+          className={cn(styles['animation-duration'], styles['delay-1'], 'hidden md:flex')}
           items={[...col2, ...col3Group[1]]}
           delay={1}
           imageClassName={(index) => {
@@ -102,7 +101,11 @@ const SceneCarousel: React.FC<SceneCarouselProps> = () => {
             return finalClassName;
           }}
         />
-        <ImageCollection className="hidden lg:flex" items={[...col3]} delay={2} />
+        <ImageCollection
+          className={cn(styles['animation-duration'], styles['delay-2'], 'hidden lg:flex')}
+          items={[...col3]}
+          delay={2}
+        />
       </div>
       <div className="h-20 bg-white/20 absolute w-full inset-0 backdrop-blur-lg transition-all" />
       <div className="h-20 bg-white/20 absolute w-full bottom-0 backdrop-blur-lg transition-all" />
