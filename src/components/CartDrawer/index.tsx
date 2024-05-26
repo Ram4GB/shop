@@ -12,14 +12,19 @@ import {
   DrawerTitle,
 } from '../ui/drawer';
 
+import { handleCheckoutOrder } from '@/app/(cwa)/actions';
+import { userNotFound } from '@/const';
 import { AppContext } from '@/contexts/AppContext';
+import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
+import { toast } from 'sonner';
 import CartItem from './CartItem';
 
 interface CartDrawerProps {}
 
 const CartDrawer: React.FC<CartDrawerProps> = ({}) => {
-  const { cart, totalQuantity, openCart, setOpenCart } = useContext(AppContext);
+  const { cart, totalQuantity, openCart, setOpenCart, clearCart } = useContext(AppContext);
+  const router = useRouter();
 
   return (
     <Drawer direction="right" open={openCart} onOpenChange={setOpenCart}>
@@ -36,7 +41,23 @@ const CartDrawer: React.FC<CartDrawerProps> = ({}) => {
             </DrawerDescription>
           </DrawerHeader>
           <DrawerFooter className="h-32">
-            <Button className="text-base" disabled={!totalQuantity}>
+            <Button
+              onClick={() => {
+                handleCheckoutOrder()
+                  .catch((e) => {
+                    if (e?.message) {
+                      if (e.message === userNotFound) {
+                        toast.error(userNotFound);
+                      }
+                    }
+                  })
+                  .then((data) => {
+                    router.push(data?.url ?? '');
+                  });
+              }}
+              className="text-base"
+              disabled={!totalQuantity}
+            >
               Checkout <CircleDollarSign className="ml-2" />
             </Button>
             <DrawerClose>

@@ -9,6 +9,41 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      orders: {
+        Row: {
+          created_at: string
+          id: number
+          kinde_user_id: string | null
+          products: Json | null
+          status: Database["public"]["Enums"]["Status"] | null
+          total_amount: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          kinde_user_id?: string | null
+          products?: Json | null
+          status?: Database["public"]["Enums"]["Status"] | null
+          total_amount?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          kinde_user_id?: string | null
+          products?: Json | null
+          status?: Database["public"]["Enums"]["Status"] | null
+          total_amount?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
           created_at: string
@@ -16,6 +51,7 @@ export type Database = {
           image: string | null
           name: string | null
           price: number | null
+          price_id: string | null
         }
         Insert: {
           created_at?: string
@@ -23,6 +59,7 @@ export type Database = {
           image?: string | null
           name?: string | null
           price?: number | null
+          price_id?: string | null
         }
         Update: {
           created_at?: string
@@ -30,6 +67,7 @@ export type Database = {
           image?: string | null
           name?: string | null
           price?: number | null
+          price_id?: string | null
         }
         Relationships: []
       }
@@ -41,7 +79,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      Status: "Paid" | "Delivering" | "Deliveried"
     }
     CompositeTypes: {
       [_ in never]: never

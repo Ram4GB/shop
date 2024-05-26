@@ -14,6 +14,11 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children, initi
   const [openCart, setOpenCart] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
 
+  const clearCart = () => {
+    setCart([]);
+    actions.handleClearCart();
+  };
+
   const handleAddToCart = (item: Product) => {
     const index = cart.findIndex((cartItem) => cartItem.product.id === item.id);
     const newCart = [...cart];
@@ -64,6 +69,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children, initi
         totalQuantity,
         openCart,
         openMenu,
+        clearCart,
         setOpenCart,
         setOpenMenu,
         handleAddToCart,
