@@ -2,10 +2,9 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { AppContext } from '@/contexts/AppContext';
-import debounce from 'lodash.debounce';
 import { Info, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
-import { FC, useContext, useEffect, useRef, useState } from 'react';
+import { FC, useContext, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 interface ProductCardProps {
@@ -17,18 +16,6 @@ const ProductCard: FC<ProductCardProps> = ({ item }) => {
 
   const imageRef = useRef<HTMLImageElement>(null);
   const [imageHeight, setImageHeight] = useState(0);
-
-  useEffect(() => {
-    setImageHeight(imageRef.current?.getBoundingClientRect().height ?? 0);
-
-    const handler = debounce(() => {
-      setImageHeight(imageRef.current?.getBoundingClientRect().height ?? 0);
-    }, 200);
-
-    window.addEventListener('resize', handler);
-
-    return () => removeEventListener('resize', handler);
-  }, []);
 
   const handleShowDetails = () => {
     toast.info('Product Details');
@@ -55,10 +42,7 @@ const ProductCard: FC<ProductCardProps> = ({ item }) => {
         </div>
       </CardFooter>
 
-      <div
-        style={{ height: `calc(100% - ${imageHeight}px)` }}
-        className="bg-white absolute bottom-0 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 w-full p-3 flex justify-center items-center transition-all duration-200 gap-2"
-      >
+      <div className="bg-white sm:absolute sm:bottom-0 sm:translate-y-full group-hover:translate-y-0 sm:opacity-0 group-hover:opacity-100 w-full p-2 sm:p-4 flex justify-center items-center transition-all duration-200 gap-2">
         <Button onClick={() => handleShowDetails()} variant="outline" className="py-4 rounded-full">
           <Info />
         </Button>

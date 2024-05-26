@@ -1,6 +1,7 @@
 import { recursive } from '@/configs/fonts';
 import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
+import { memo } from 'react';
 
 interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -39,4 +40,4 @@ const Heading: React.FC<HeadingProps> = ({ children, as: Tag, className, ...prop
   );
 };
 
-export default Heading;
+export default memo(Heading);

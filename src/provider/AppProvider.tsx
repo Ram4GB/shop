@@ -11,6 +11,8 @@ interface AppContextProviderProps extends PropsWithChildren {
 
 const AppContextProvider: React.FC<AppContextProviderProps> = ({ children, initialCart }) => {
   const [cart, setCart] = useState<Cart[]>(initialCart ?? []);
+  const [openCart, setOpenCart] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const handleAddToCart = (item: Product) => {
     const index = cart.findIndex((cartItem) => cartItem.product.id === item.id);
@@ -56,7 +58,18 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children, initi
 
   return (
     <AppContext.Provider
-      value={{ cart, totalItems, totalQuantity, handleAddToCart, handleRemoveFromCart, handleUpdateCart }}
+      value={{
+        cart,
+        totalItems,
+        totalQuantity,
+        openCart,
+        openMenu,
+        setOpenCart,
+        setOpenMenu,
+        handleAddToCart,
+        handleRemoveFromCart,
+        handleUpdateCart,
+      }}
     >
       {children}
     </AppContext.Provider>

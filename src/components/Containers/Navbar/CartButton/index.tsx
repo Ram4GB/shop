@@ -1,37 +1,33 @@
 'use client';
 import CartDrawer from '@/components/CartDrawer';
 import { buttonVariants } from '@/components/ui/button';
-import { Drawer, DrawerTrigger } from '@/components/ui/drawer';
 import { AppContext } from '@/contexts/AppContext';
 import { cn } from '@/lib/utils';
 
 import { ShoppingCart } from 'lucide-react';
 import { FC, useContext } from 'react';
 
-interface CartButtonProps {}
+interface CartButtonProps {
+  showTotalQuantity?: boolean;
+}
 
-const CartButton: FC<CartButtonProps> = () => {
-  const { totalQuantity } = useContext(AppContext);
+const CartButton: FC<CartButtonProps> = ({ showTotalQuantity = true }) => {
+  const { totalQuantity, setOpenCart } = useContext(AppContext);
 
   return (
     <>
-      <Drawer direction="right">
-        <DrawerTrigger asChild>
-          <div
-            className={cn(
-              buttonVariants({
-                variant: 'default',
-                size: 'sm',
-              }),
-              'cursor-pointer',
-            )}
-          >
-            <ShoppingCart /> <span className="ml-2 inline-block">{totalQuantity}</span>
-          </div>
-        </DrawerTrigger>
-
-        <CartDrawer />
-      </Drawer>
+      <div
+        onClick={() => setOpenCart?.(true)}
+        className={cn(
+          buttonVariants({
+            variant: 'destructive',
+          }),
+          'cursor-pointer text-base',
+        )}
+      >
+        <ShoppingCart /> {showTotalQuantity && <span className="ml-2 inline-block">{totalQuantity}</span>}
+      </div>
+      <CartDrawer />
     </>
   );
 };

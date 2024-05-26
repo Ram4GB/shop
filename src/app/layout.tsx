@@ -22,7 +22,13 @@ export default async function RootLayout({
       <body className={quicksand.className}>
         <AppProvider initialCart={cart}>{children}</AppProvider>
       </body>
-      <Toaster position="top-center" richColors duration={2000} style={{ ...quicksand.style }} toastOptions={{}} />
+      <Toaster
+        position="top-center"
+        richColors
+        duration={2000}
+        style={{ ...quicksand.style }}
+        toastOptions={{ style: {} }}
+      />
     </html>
   );
 }
