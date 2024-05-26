@@ -1,17 +1,18 @@
 import Heading from '@/components/Commons/Heading';
-import ProductCard from '@/components/Commons/ProductCard';
 import AboutCard from '@/components/Section/Home/AboutCard';
+import ProductList from '@/components/Section/Home/ProductList';
+import ProductListSkeleton from '@/components/Section/Home/ProductList/Skeleton';
 import SceneCarousel from '@/components/Section/Home/SceneCarousel';
 import Testimonial from '@/components/Section/Home/Testimonial';
 import { buttonVariants } from '@/components/ui/button';
 import { recursive } from '@/configs/fonts';
 import { cn } from '@/lib/utils';
-import { products } from '@/mock/products';
 import { BookOpen, Handshake, ShoppingBasket } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
       <svg className="absolut top-[9999px] left-[9999px] h-0 w-0">
@@ -94,22 +95,9 @@ export default function Home() {
           <Heading as="h2" className="mb-12">
             Our Products
           </Heading>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
-            {products.map((product) => (
-              <ProductCard key={product.id} item={product} />
-            ))}
-          </div>
-          <div className="text-center">
-            <Link
-              href="/products"
-              className={cn(
-                buttonVariants({ variant: 'link' }),
-                'text-lg mx-auto font-bold text-center mt-4 underline underline-offset-4 uppercase inline-block',
-              )}
-            >
-              More products
-            </Link>
-          </div>
+          <Suspense fallback={<ProductListSkeleton />}>
+            <ProductList />
+          </Suspense>
         </div>
       </section>
 

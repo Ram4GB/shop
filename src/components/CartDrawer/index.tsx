@@ -1,3 +1,4 @@
+'use client';
 import { CircleDollarSign } from 'lucide-react';
 import { Button } from '../ui/button';
 import {

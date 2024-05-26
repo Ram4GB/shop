@@ -10,3 +10,5 @@ node_modules
 
 .eslintrc.json
 .prettierrc.js
+
+database.types.ts

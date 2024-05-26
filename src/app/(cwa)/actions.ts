@@ -1,12 +1,12 @@
 'use server';
+import supabase from '@/lib/supabase';
 import { Product } from '@/mock/products';
 import { cookies } from 'next/headers';
+import { cache } from 'react';
 
 export const handleAddToCart = async (product: Product) => {
   const cookiesStore = cookies();
   const cart = await handleGetCart();
-
-  console.log('cart', cart);
 
   const index = cart.findIndex((cartItem) => cartItem.product.id === product.id);
 
@@ -61,3 +61,10 @@ export const handleUpdateCart = async (product: Product, quantity: number) => {
 
   cookiesStore.set('cart', JSON.stringify(cart), { httpOnly: true, secure: true, maxAge: 60 * 60 * 24 * 7 });
 };
+
+export const getAllProducts = cache(() =>
+  supabase
+    .from('products')
+    .select('*')
+    .then(({ data }) => data),
+);

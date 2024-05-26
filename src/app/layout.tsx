@@ -1,5 +1,5 @@
 import { Toaster } from '@/components/ui/sonner';
-import { quicksand } from '@/configs/fonts';
+import { recursive } from '@/configs/fonts';
 import AppProvider from '@/provider/AppProvider';
 import type { Metadata } from 'next';
 import { handleGetCart } from './(cwa)/actions';
@@ -19,14 +19,14 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={quicksand.className}>
+      <body className={recursive.className}>
         <AppProvider initialCart={cart}>{children}</AppProvider>
       </body>
       <Toaster
         position="top-center"
         richColors
         duration={2000}
-        style={{ ...quicksand.style }}
+        style={{ ...recursive.style }}
         toastOptions={{ style: {} }}
       />
     </html>

@@ -1,6 +1,8 @@
+import CartDrawer from '@/components/CartDrawer';
 import NodejsDark from '@/components/Icons/Logos/NodejsDark';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { LogIn } from 'lucide-react';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -12,7 +14,11 @@ import { menus } from './menu';
 
 interface NavbarProps {}
 
-const Navbar: FC<NavbarProps> = () => {
+const Navbar: FC<NavbarProps> = async () => {
+  const { getUser } = getKindeServerSession();
+
+  const user = await getUser();
+
   return (
     <>
       <nav className="bg-slate-100/75 fixed w-full h-16 inset-0 backdrop-blur-lg transition-all z-10">
@@ -28,7 +34,7 @@ const Navbar: FC<NavbarProps> = () => {
               <span>|</span>
               <div className="flex items-center gap-2">
                 <Link
-                  href="/login"
+                  href={user ? '/api/auth/logout' : '/api/auth/login'}
                   className={cn(
                     buttonVariants({
                       variant: 'default',
@@ -37,7 +43,13 @@ const Navbar: FC<NavbarProps> = () => {
                     'text-base',
                   )}
                 >
-                  Login <LogIn className="ml-1" />
+                  {!user ? (
+                    <>
+                      Login <LogIn className="ml-1" />
+                    </>
+                  ) : (
+                    <>Logout 🥦</>
+                  )}
                 </Link>
                 <CartButton />
               </div>
@@ -50,6 +62,7 @@ const Navbar: FC<NavbarProps> = () => {
         </div>
       </nav>
       <MobileMenu />
+      <CartDrawer />
     </>
   );
 };

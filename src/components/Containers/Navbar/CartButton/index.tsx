@@ -1,5 +1,4 @@
 'use client';
-import CartDrawer from '@/components/CartDrawer';
 import { buttonVariants } from '@/components/ui/button';
 import { AppContext } from '@/contexts/AppContext';
 import { cn } from '@/lib/utils';
@@ -25,9 +24,13 @@ const CartButton: FC<CartButtonProps> = ({ showTotalQuantity = true }) => {
           'cursor-pointer text-base',
         )}
       >
-        <ShoppingCart /> {showTotalQuantity && <span className="ml-2 inline-block">{totalQuantity}</span>}
+        <ShoppingCart
+          className={cn({
+            'mr-1': showTotalQuantity && totalQuantity !== 0,
+          })}
+        />
+        {showTotalQuantity && totalQuantity !== 0 && <span className="ml-2 inline-block">{totalQuantity}</span>}
       </div>
-      <CartDrawer />
     </>
   );
 };

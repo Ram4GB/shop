@@ -35,14 +35,14 @@ const ProductCard: FC<ProductCardProps> = ({ item }) => {
           />
         </div>
       </CardContent>
-      <CardFooter className="flex flex-col items-start mt-4">
+      <CardFooter className="flex flex-col items-start lg:mt-4 p-4 lg:p-6">
         <div className="flex flex-col justify-center">
           <p className="text-lg font-bold text-slate-700 truncate max-w-40 mx-auto ">{item?.name}</p>
           <p className="text-base text-slate-700 font-normal">${item?.price}.00</p>
         </div>
       </CardFooter>
 
-      <div className="bg-white sm:absolute sm:bottom-0 sm:translate-y-full group-hover:translate-y-0 sm:opacity-0 group-hover:opacity-100 w-full p-2 sm:p-4 flex justify-center items-center transition-all duration-200 gap-2">
+      <div className="bg-white sm:absolute sm:bottom-0 sm:translate-y-full group-hover:translate-y-0 sm:opacity-0 group-hover:opacity-100 w-full px-2 sm:p-4 pt-0 pb-4 flex justify-center items-center transition-all duration-200 gap-2">
         <Button onClick={() => handleShowDetails()} variant="outline" className="py-4 rounded-full">
           <Info />
         </Button>
