@@ -1,12 +1,21 @@
 'use client';
+import { Cart, Product } from '@/mock/products';
 import { createContext } from 'react';
 
 interface AppContextProps {
-  items: any[];
-  handleAddToCart: (item: any) => void;
+  cart: Cart[];
+  totalItems: number;
+  totalQuantity?: number;
+  handleAddToCart: (item: Product) => void;
+  handleRemoveFromCart: (item: Product) => void;
+  handleUpdateCart: (item: Product, quantity: number) => void;
 }
 
 export const AppContext = createContext<AppContextProps>({
-  items: [],
-  handleAddToCart: (item: any) => {},
+  cart: [],
+  totalQuantity: 0,
+  totalItems: 0,
+  handleAddToCart: (item: Product) => {},
+  handleRemoveFromCart: (item: Product) => {},
+  handleUpdateCart: (item: Product) => {},
 });
