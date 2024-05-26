@@ -1,5 +1,6 @@
 import { Toaster } from '@/components/ui/sonner';
 import { quicksand } from '@/configs/fonts';
+import AppProvider from '@/provider/AppProvider';
 import type { Metadata } from 'next';
 import './globals.css';
 
@@ -15,8 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={quicksand.className}>{children}</body>
-      <Toaster position="top-right" richColors duration={2000} style={{ ...quicksand.style }} />
+      <body className={quicksand.className}>
+        <AppProvider>{children}</AppProvider>
+      </body>
+      <Toaster position="top-center" richColors duration={2000} style={{ ...quicksand.style }} />
     </html>
   );
 }

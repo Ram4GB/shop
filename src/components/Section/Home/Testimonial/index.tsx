@@ -1,4 +1,4 @@
-import { Carousel, CarouselContent, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { CarouselContent } from '@/components/ui/carousel';
 import { FC } from 'react';
 
 import customer1 from 'public/image/mock/customers/team-member-1.jpg';
@@ -6,6 +6,7 @@ import customer2 from 'public/image/mock/customers/team-member-2.jpg';
 import customer3 from 'public/image/mock/customers/team-member-3.jpg';
 import customer4 from 'public/image/mock/customers/team-member-4.jpg';
 
+import TestimonialCarousel from './TestimonialCarousel';
 import TestimonialItem from './TestimonialItem';
 
 const testimonials = [
@@ -19,7 +20,7 @@ const testimonials = [
   },
   {
     id: 2,
-    name: 'Jane Cooper',
+    name: 'John Doe',
     image: customer2,
     description:
       'My daily go-to for coffee! Great variety, delicious pastries, and top-notch service. A neighborhood gem!',
@@ -27,7 +28,7 @@ const testimonials = [
   },
   {
     id: 3,
-    name: 'Jane Cooper',
+    name: 'Jane Smith',
     image: customer3,
     description:
       'Best coffee ever! High-quality beans, charming ambiance, and perfect for coffee lovers. A must-visit!',
@@ -35,7 +36,7 @@ const testimonials = [
   },
   {
     id: 4,
-    name: 'Jane Cooper',
+    name: 'Peter Parker',
     image: customer4,
     description: `Discovered this coffee shop and it's now a favorite. Beautiful interior, fantastic drinks, and welcoming staff. Ideal for a morning or afternoon break.`,
     star: 4,
@@ -47,15 +48,13 @@ interface TestimonialProps {}
 const Testimonial: FC<TestimonialProps> = () => {
   return (
     <div>
-      <Carousel>
+      <TestimonialCarousel>
         <CarouselContent>
           {testimonials.map((testimonial) => (
             <TestimonialItem key={testimonial.id} item={testimonial} />
           ))}
         </CarouselContent>
-        <CarouselPrevious className="bg-slate-500 hover:bg-slate-700 text-white hover:text-white" />
-        <CarouselNext className="bg-slate-500 hover:bg-slate-700 text-white hover:text-white" />
-      </Carousel>
+      </TestimonialCarousel>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { LogIn } from 'lucide-react';
 import Link from 'next/link';
 import { FC } from 'react';
+import CartButton from './CartButton';
 import NavItem from './NavItem.tsx';
 
 interface NavbarProps {}
@@ -18,7 +19,7 @@ const Navbar: FC<NavbarProps> = () => {
             <NavItem href="/#about-us">About Us</NavItem>
             <NavItem href="/#our-products">Our Products</NavItem>
             <span>|</span>
-            <div className="items-center">
+            <div className="flex items-center gap-2">
               <Link
                 href="/login"
                 className={buttonVariants({
@@ -28,6 +29,7 @@ const Navbar: FC<NavbarProps> = () => {
               >
                 Login <LogIn className="ml-1" />
               </Link>
+              <CartButton />
             </div>
           </div>
         </div>
