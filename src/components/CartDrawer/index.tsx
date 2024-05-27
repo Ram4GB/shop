@@ -14,7 +14,7 @@ import {
 
 import { AppContext } from '@/contexts/AppContext';
 import { useRouter } from 'next/navigation';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import CartItem from './CartItem';
 
 interface CartDrawerProps {}
@@ -23,15 +23,17 @@ const CartDrawer: React.FC<CartDrawerProps> = ({}) => {
   const { cart, totalQuantity, openCart, setOpenCart } = useContext(AppContext);
   const router = useRouter();
 
-  const [disabled, setDisabled] = useState(false);
-
   return (
     <Drawer direction="right" open={openCart} onOpenChange={setOpenCart}>
       <DrawerPortal>
-        <DrawerContent className="bg-white flex flex-col rounded-none min-h-screen w-screen lg:max-w-[400px] mt-24 fixed bottom-0 right-0 ">
+        <DrawerContent className="bg-white flex flex-col rounded-none w-screen lg:max-w-[400px] fixed bottom-0 right-0 top-0 mt-0">
           <DrawerHeader>
             <DrawerTitle>Checkout</DrawerTitle>
-            <DrawerDescription style={{ height: 'calc(100vh - 200px)' }} className="overflow-y-auto">
+            {/* 
+              When url bar or navigation bar of the browser is visible. 
+              Adjust height of the content to fit the rest of screen.
+            */}
+            <DrawerDescription style={{ height: 'calc(100svh - 200px)' }} className="overflow-y-auto">
               <div className="flex flex-col mt-8 gap-6">
                 {cart.map((item) => (
                   <CartItem key={item.product.id} item={item} />
@@ -46,7 +48,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({}) => {
                 router.push('/checkout');
               }}
               className="text-base"
-              disabled={!totalQuantity || disabled}
+              disabled={!totalQuantity}
             >
               Checkout <CircleDollarSign className="ml-2" />
             </Button>
