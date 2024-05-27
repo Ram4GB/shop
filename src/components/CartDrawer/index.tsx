@@ -28,7 +28,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({}) => {
   return (
     <Drawer direction="right" open={openCart} onOpenChange={setOpenCart}>
       <DrawerPortal>
-        <DrawerContent className="bg-white flex flex-col rounded-none h-full w-[400px] mt-24 fixed bottom-0 right-0 ">
+        <DrawerContent className="bg-white flex flex-col rounded-none min-h-screen w-screen lg:max-w-[400px] mt-24 fixed bottom-0 right-0 ">
           <DrawerHeader>
             <DrawerTitle>Checkout</DrawerTitle>
             <DrawerDescription style={{ height: 'calc(100vh - 200px)' }} className="overflow-y-auto">

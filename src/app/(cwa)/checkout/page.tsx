@@ -5,13 +5,14 @@ import { userNotFound } from '@/const';
 import { AppContext } from '@/contexts/AppContext';
 import { cn } from '@/lib/utils';
 import { CreditCard, Loader } from 'lucide-react';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { handleCheckoutOrder } from '../actions';
 
 const CheckoutPage = () => {
-  const { cart, cost } = useContext(AppContext);
+  const { cart, cost, totalItems } = useContext(AppContext);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -41,22 +42,38 @@ const CheckoutPage = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem('order_id', order_id as string);
+    if (order_id) {
+      localStorage.setItem('order_id', order_id as string);
+    }
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }, 1000);
   }, [order_id]);
 
   return (
     <div className="bg-slate-50">
-      <div className="max-w-screen-lg mx-auto mt-20 py-4 lg:py-14">
+      <div className="max-w-screen-md mx-auto mt-20 p-4 lg:p-0 py-8 lg:py-14">
         <h1 className="text-3xl text-slate-700 font-bold mb-4">Checkout Page</h1>
-        <p className="mb-2 lg:mb-7 text-slate-700">Total Items: {cart.reduce((acc, item) => acc + item.quantity, 0)}</p>
+        {cart.length > 0 && (
+          <p className="mb-2 lg:mb-7 text-slate-700">
+            Total Items: {cart.reduce((acc, item) => acc + item.quantity, 0)}
+          </p>
+        )}
         <div className="flex flex-col gap-4">
+          {!cart.length && (
+            <Image className="mx-auto mt-8" src="/svg/undraw_empty_cart_co35.svg" width={200} height={200} alt="" />
+          )}
           {cart.map((item) => (
             <CartItem key={item.product.id} item={item} />
           ))}
         </div>
         <div className="mt-8 flex justify-end flex-col">
-          <p className="mb-4 text-slate-700 text-2xl">
-            <span className="text-slate-700 font-bold">Total:</span> <span className="">${cost}.00</span>
+          <p className="mb-4 text-slate-700 text-xl">
+            <span className="text-slate-700 font-bold">Cost:</span> <span className="">{cost}.00$</span>
           </p>
           <button
             className={cn(
@@ -64,15 +81,15 @@ const CheckoutPage = () => {
                 variant: 'default',
                 size: 'lg',
               }),
+              'text-base',
             )}
             onClick={handleClickCheckout}
-            disabled={disabled}
+            disabled={disabled || !totalItems}
           >
             {loading ? (
               <Loader className="animate-spin" />
             ) : (
               <>
-                {' '}
                 Pay now <CreditCard className="ml-2" />
               </>
             )}

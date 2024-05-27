@@ -16,7 +16,7 @@ const MobileMenu: FC<MobileMenuProps> = () => {
   return (
     <Drawer open={openMenu} onOpenChange={setOpenMenu} direction="right">
       <DrawerPortal>
-        <DrawerContent className="flex md:hidden bg-white flex-col rounded-t-[10px] h-full rounded-none w-1/2 min-w-[350px] mt-24 fixed bottom-0 right-0">
+        <DrawerContent className="flex md:hidden bg-white flex-col rounded-t-[10px] min-h-screen rounded-none w-screen lg:max-w-[400px] min-w-[350px] mt-24 fixed bottom-0 right-0">
           <div className="flex flex-col gap-2 px-4">
             <p className="p-4 text-xl font-bold">Menu</p>
             {menus.map((menu) => (
