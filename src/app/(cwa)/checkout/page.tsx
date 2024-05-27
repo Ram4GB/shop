@@ -28,6 +28,8 @@ const CheckoutPage = () => {
 
     const data = await handleCheckoutOrder(order_id as string);
 
+    console.log('data', data);
+
     setDisabled(false);
     setLoading(false);
 
