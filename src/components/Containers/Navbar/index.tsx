@@ -24,7 +24,9 @@ const Navbar: FC<NavbarProps> = async () => {
       <nav className="bg-slate-100/75 fixed w-full h-16 inset-0 backdrop-blur-lg transition-all z-10">
         <div className="max-w-screen-xl mx-auto px-4 lg:px-8">
           <div className="w-full flex items-center">
-            <NodejsDark className="w-16 h-14 relative mix-blend-multiply" />
+            <Link href="/">
+              <NodejsDark className="w-16 h-14 relative mix-blend-multiply" />
+            </Link>
             <div className="ml-auto hidden md:flex items-center gap-6">
               {menus.map((menu) => (
                 <NavItem key={menu.name} href={menu.href}>

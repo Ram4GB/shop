@@ -6,6 +6,7 @@ import { Product } from '@/mock/products';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
+import { Tables } from '../../../database.types';
 
 export const handleAddToCart = async (product: Product) => {
   const cookiesStore = cookies();
@@ -72,7 +73,7 @@ export const getAllProducts = cache(() =>
     .then(({ data }) => data),
 );
 
-export const handleCheckoutOrder = async () => {
+export const handleCheckoutOrder = async (order_id?: string | null) => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
@@ -80,20 +81,52 @@ export const handleCheckoutOrder = async () => {
 
   const cart = await handleGetCart();
 
-  // Create order
-  const order = await supabase
-    .from('orders')
-    .insert({
-      kinde_user_id: user.id,
-      products: JSON.stringify(cart),
-      total_amount: cart.reduce((acc, item) => acc + item.product.price, 0),
-    })
-    .throwOnError()
-    .select()
-    .single()
-    .throwOnError();
+  console.log('order_id', order_id);
 
-  console.log('order', order);
+  let existingOrder: Tables<'orders'> | null = null;
+
+  if (order_id) {
+    existingOrder = await supabase
+      .from('orders')
+      .select()
+      .eq('id', order_id)
+      .single()
+      .then((data) => data.data);
+  }
+
+  let order: Tables<'orders'> | null = null;
+
+  // Create new order
+  if (!existingOrder) {
+    console.log('new');
+    order = await supabase
+      .from('orders')
+      .insert({
+        kinde_user_id: user.id,
+        products: JSON.stringify(cart),
+        total_amount: cart.reduce((acc, item) => acc + item.product.price, 0),
+      })
+      .throwOnError()
+      .select()
+      .single()
+      .throwOnError()
+      .then((data) => data.data);
+  }
+
+  // Update existing order
+  if (order_id && existingOrder) {
+    order = await supabase
+      .from('orders')
+      .update({
+        products: JSON.stringify(cart),
+        total_amount: cart.reduce((acc, item) => acc + item.quantity * item.product.price, 0),
+      })
+      .eq('id', order_id)
+      .select()
+      .single()
+      .throwOnError()
+      .then((data) => data.data);
+  }
 
   const stripeSession = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
@@ -103,17 +136,17 @@ export const handleCheckoutOrder = async () => {
     })),
     mode: 'payment',
     success_url: `${process.env.NEXT_PUBLIC_URL}/checkout-success?redirectUrl=/`,
-    cancel_url: `${process.env.NEXT_PUBLIC_URL}/?order-status=cancel&?order_id=${order.data?.id}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_URL}/checkout?order_status=cancel&order_id=${order?.id}`,
     shipping_address_collection: {
       allowed_countries: ['US', 'VN'],
     },
     metadata: {
       userId: user.id,
-      orderId: order.data?.id!,
+      orderId: order?.id!,
     },
   });
 
-  return { url: stripeSession.url };
+  return { url: stripeSession.url, order_id: order?.id! };
 };
 
 export const handleClearCart = () => {

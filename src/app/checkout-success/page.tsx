@@ -14,6 +14,7 @@ const Page = () => {
   useEffect(() => {
     (async function () {
       await clearCart?.();
+      localStorage.removeItem('order_id');
       toast.success('Order placed successfully 🎉. Check your email for deliver');
 
       setTimeout(() => {

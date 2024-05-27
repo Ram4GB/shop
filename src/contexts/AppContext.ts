@@ -8,6 +8,7 @@ interface AppContextProps {
   totalQuantity?: number;
   openCart: boolean;
   openMenu: boolean;
+  cost: number;
   clearCart?: () => void;
   setOpenCart?: Dispatch<SetStateAction<boolean>>;
   setOpenMenu?: Dispatch<SetStateAction<boolean>>;
@@ -22,6 +23,7 @@ export const AppContext = createContext<AppContextProps>({
   totalItems: 0,
   openCart: false,
   openMenu: false,
+  cost: 0,
   clearCart: () => {},
   handleAddToCart: (item: Product) => {},
   handleRemoveFromCart: (item: Product) => {},

@@ -12,19 +12,18 @@ import {
   DrawerTitle,
 } from '../ui/drawer';
 
-import { handleCheckoutOrder } from '@/app/(cwa)/actions';
-import { userNotFound } from '@/const';
 import { AppContext } from '@/contexts/AppContext';
 import { useRouter } from 'next/navigation';
-import { useContext } from 'react';
-import { toast } from 'sonner';
+import { useContext, useState } from 'react';
 import CartItem from './CartItem';
 
 interface CartDrawerProps {}
 
 const CartDrawer: React.FC<CartDrawerProps> = ({}) => {
-  const { cart, totalQuantity, openCart, setOpenCart, clearCart } = useContext(AppContext);
+  const { cart, totalQuantity, openCart, setOpenCart } = useContext(AppContext);
   const router = useRouter();
+
+  const [disabled, setDisabled] = useState(false);
 
   return (
     <Drawer direction="right" open={openCart} onOpenChange={setOpenCart}>
@@ -43,20 +42,11 @@ const CartDrawer: React.FC<CartDrawerProps> = ({}) => {
           <DrawerFooter className="h-32">
             <Button
               onClick={() => {
-                handleCheckoutOrder()
-                  .catch((e) => {
-                    if (e?.message) {
-                      if (e.message === userNotFound) {
-                        toast.error(userNotFound);
-                      }
-                    }
-                  })
-                  .then((data) => {
-                    router.push(data?.url ?? '');
-                  });
+                setOpenCart?.(false);
+                router.push('/checkout');
               }}
               className="text-base"
-              disabled={!totalQuantity}
+              disabled={!totalQuantity || disabled}
             >
               Checkout <CircleDollarSign className="ml-2" />
             </Button>

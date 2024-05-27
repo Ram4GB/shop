@@ -61,6 +61,8 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children, initi
   const totalItems = Object.keys(groupedItems).length;
   const totalQuantity = cart.reduce((prevQuantity, { quantity }) => prevQuantity + quantity, 0);
 
+  const cost = cart.reduce((prevCost, { product, quantity }) => prevCost + product.price * quantity, 0);
+
   return (
     <AppContext.Provider
       value={{
@@ -69,6 +71,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children, initi
         totalQuantity,
         openCart,
         openMenu,
+        cost,
         clearCart,
         setOpenCart,
         setOpenMenu,
