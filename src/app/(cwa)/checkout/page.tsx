@@ -25,20 +25,21 @@ const CheckoutPage = () => {
   const handleClickCheckout = async () => {
     setDisabled(true);
     setLoading(true);
-    try {
-      const data = await handleCheckoutOrder(order_id as string);
+
+    const data = await handleCheckoutOrder(order_id as string);
+
+    setDisabled(false);
+    setLoading(false);
+
+    if (!data.success) {
       if ((data as any)?.message) {
         if ((data as any)?.message === userNotFound) {
           toast.error('Please login to continue.');
           return router.push('/api/auth/login');
         }
       }
+    } else {
       router.push(data?.url ?? '');
-    } catch (error) {
-      console.log('error', error);
-    } finally {
-      setDisabled(false);
-      setLoading(false);
     }
   };
 
