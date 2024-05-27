@@ -77,7 +77,7 @@ export const handleCheckoutOrder = async (order_id?: string | null) => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user) throw new Error(userNotFound);
+  if (!user) return { message: userNotFound };
 
   const cart = await handleGetCart();
 

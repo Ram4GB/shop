@@ -25,18 +25,15 @@ const CheckoutPage = () => {
     setLoading(true);
     try {
       const data = await handleCheckoutOrder(order_id);
-      router.push(data?.url ?? '');
-      console.log('asdadas');
-    } catch (error) {
-      console.log(error, 'error');
-      if ((error as any)?.message) {
-        if ((error as any)?.message === userNotFound) {
+      if ((data as any)?.message) {
+        if ((data as any)?.message === userNotFound) {
           toast.error('Please login to continue.');
-          router.push('/api/auth/login');
+          return router.push('/api/auth/login');
         }
       }
+      router.push(data?.url ?? '');
+    } catch (error) {
     } finally {
-      console.log('huh');
       setDisabled(false);
       setLoading(false);
     }
