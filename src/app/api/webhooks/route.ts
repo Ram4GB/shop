@@ -46,6 +46,7 @@ export const POST = async (req: Request) => {
             state: billingAddress!.state,
           }),
         })
+        .eq('id', session.metadata?.orderId!)
         .throwOnError()
         .select()
         .single()
