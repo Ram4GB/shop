@@ -74,12 +74,12 @@ export const getAllProducts = cache(() =>
 );
 
 export const handleCheckoutOrder = async (order_id?: string | null) => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
-  if (!user) return { message: userNotFound };
-
   try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    if (!user) return { message: userNotFound };
+
     const cart = await handleGetCart();
 
     let existingOrder: Tables<'orders'> | null = null;

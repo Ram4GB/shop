@@ -33,6 +33,7 @@ const CheckoutPage = () => {
       }
       router.push(data?.url ?? '');
     } catch (error) {
+      console.log('error', error);
     } finally {
       setDisabled(false);
       setLoading(false);
