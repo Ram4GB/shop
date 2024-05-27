@@ -78,7 +78,7 @@ export const handleCheckoutOrder = async (order_id?: string | null) => {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
-    if (!user) return { message: userNotFound };
+    if (!user) return { message: userNotFound, success: false };
 
     const cart = await handleGetCart();
 
@@ -144,9 +144,9 @@ export const handleCheckoutOrder = async (order_id?: string | null) => {
       },
     });
 
-    return { url: stripeSession.url, order_id: order?.id! };
+    return { url: stripeSession.url, order_id: order?.id!, success: true };
   } catch (error) {
-    return { message: 'Something error', error };
+    return { message: (error as any)?.message ?? 'Something error', success: false };
   }
 };
 

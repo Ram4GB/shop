@@ -3,6 +3,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { Drawer, DrawerContent, DrawerPortal } from '@/components/ui/drawer';
 import { AppContext } from '@/contexts/AppContext';
 import { cn } from '@/lib/utils';
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { LogIn } from 'lucide-react';
 import Link from 'next/link';
 import { FC, useContext } from 'react';
@@ -12,6 +13,7 @@ interface MobileMenuProps {}
 
 const MobileMenu: FC<MobileMenuProps> = () => {
   const { openMenu, setOpenMenu } = useContext(AppContext);
+  const { user } = useKindeBrowserClient();
 
   return (
     <Drawer open={openMenu} onOpenChange={setOpenMenu} direction="right">
@@ -34,7 +36,8 @@ const MobileMenu: FC<MobileMenuProps> = () => {
               </Link>
             ))}
             <div className="flex gap-2 pl-2 pt-4">
-              <p
+              <Link
+                href={user ? '/api/auth/logout' : '/api/auth/login'}
                 className={cn(
                   buttonVariants({
                     variant: 'default',
@@ -43,8 +46,8 @@ const MobileMenu: FC<MobileMenuProps> = () => {
                 )}
               >
                 <LogIn />
-                Login
-              </p>
+                {user ? 'Logout' : 'Login'}
+              </Link>
             </div>
           </div>
         </DrawerContent>
