@@ -26,7 +26,9 @@ const CheckoutPage = () => {
     try {
       const data = await handleCheckoutOrder(order_id);
       router.push(data?.url ?? '');
+      console.log('asdadas');
     } catch (error) {
+      console.log(error, 'error');
       if ((error as any)?.message) {
         if ((error as any)?.message === userNotFound) {
           toast.error('Please login to continue.');
@@ -34,6 +36,7 @@ const CheckoutPage = () => {
         }
       }
     } finally {
+      console.log('huh');
       setDisabled(false);
       setLoading(false);
     }
