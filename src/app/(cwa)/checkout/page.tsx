@@ -16,7 +16,9 @@ const CheckoutPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const order_id = searchParams.get('order_id') ?? (localStorage.getItem('order_id') as string);
+  const order_id =
+    searchParams.get('order_id') ??
+    (typeof localStorage !== 'undefined' && (localStorage.getItem('order_id') as string));
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +26,7 @@ const CheckoutPage = () => {
     setDisabled(true);
     setLoading(true);
     try {
-      const data = await handleCheckoutOrder(order_id);
+      const data = await handleCheckoutOrder(order_id as string);
       if ((data as any)?.message) {
         if ((data as any)?.message === userNotFound) {
           toast.error('Please login to continue.');
