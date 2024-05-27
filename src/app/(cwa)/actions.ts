@@ -79,72 +79,75 @@ export const handleCheckoutOrder = async (order_id?: string | null) => {
 
   if (!user) return { message: userNotFound };
 
-  const cart = await handleGetCart();
+  try {
+    const cart = await handleGetCart();
 
-  let existingOrder: Tables<'orders'> | null = null;
+    let existingOrder: Tables<'orders'> | null = null;
 
-  if (order_id) {
-    existingOrder = await supabase
-      .from('orders')
-      .select()
-      .eq('id', order_id)
-      .single()
-      .then((data) => data.data);
+    if (order_id) {
+      existingOrder = await supabase
+        .from('orders')
+        .select()
+        .eq('id', order_id)
+        .single()
+        .then((data) => data.data);
+    }
+
+    let order: Tables<'orders'> | null = null;
+
+    // Create new order
+    if (!existingOrder) {
+      order = await supabase
+        .from('orders')
+        .insert({
+          kinde_user_id: user.id,
+          products: JSON.stringify(cart),
+          total_amount: cart.reduce((acc, item) => acc + item.product.price, 0),
+        })
+        .throwOnError()
+        .select()
+        .single()
+        .throwOnError()
+        .then((data) => data.data);
+    }
+
+    // Update existing order
+    if (order_id && existingOrder) {
+      order = await supabase
+        .from('orders')
+        .update({
+          products: JSON.stringify(cart),
+          total_amount: cart.reduce((acc, item) => acc + item.quantity * item.product.price, 0),
+        })
+        .eq('id', order_id)
+        .select()
+        .single()
+        .throwOnError()
+        .then((data) => data.data);
+    }
+
+    const stripeSession = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: cart.map((item) => ({
+        price: item.product.price_id,
+        quantity: item.quantity,
+      })),
+      mode: 'payment',
+      success_url: `${process.env.NEXT_PUBLIC_URL}/checkout-success?redirectUrl=/`,
+      cancel_url: `${process.env.NEXT_PUBLIC_URL}/checkout?order_status=cancel&order_id=${order?.id}`,
+      shipping_address_collection: {
+        allowed_countries: ['US', 'VN'],
+      },
+      metadata: {
+        userId: user.id,
+        orderId: order?.id!,
+      },
+    });
+
+    return { url: stripeSession.url, order_id: order?.id! };
+  } catch (error) {
+    return { message: 'Something error', error };
   }
-
-  let order: Tables<'orders'> | null = null;
-
-  // Create new order
-  if (!existingOrder) {
-    console.log('new');
-    order = await supabase
-      .from('orders')
-      .insert({
-        kinde_user_id: user.id,
-        products: JSON.stringify(cart),
-        total_amount: cart.reduce((acc, item) => acc + item.product.price, 0),
-      })
-      .throwOnError()
-      .select()
-      .single()
-      .throwOnError()
-      .then((data) => data.data);
-  }
-
-  // Update existing order
-  if (order_id && existingOrder) {
-    order = await supabase
-      .from('orders')
-      .update({
-        products: JSON.stringify(cart),
-        total_amount: cart.reduce((acc, item) => acc + item.quantity * item.product.price, 0),
-      })
-      .eq('id', order_id)
-      .select()
-      .single()
-      .throwOnError()
-      .then((data) => data.data);
-  }
-
-  const stripeSession = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: cart.map((item) => ({
-      price: item.product.price_id,
-      quantity: item.quantity,
-    })),
-    mode: 'payment',
-    success_url: `${process.env.NEXT_PUBLIC_URL}/checkout-success?redirectUrl=/`,
-    cancel_url: `${process.env.NEXT_PUBLIC_URL}/checkout?order_status=cancel&order_id=${order?.id}`,
-    shipping_address_collection: {
-      allowed_countries: ['US', 'VN'],
-    },
-    metadata: {
-      userId: user.id,
-      orderId: order?.id!,
-    },
-  });
-
-  return { url: stripeSession.url, order_id: order?.id! };
 };
 
 export const handleClearCart = () => {
