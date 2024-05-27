@@ -28,11 +28,14 @@ const Navbar: FC<NavbarProps> = async () => {
               <NodejsDark className="w-16 h-14 relative mix-blend-multiply" />
             </Link>
             <div className="ml-auto hidden md:flex items-center gap-6">
-              {menus.map((menu) => (
-                <NavItem key={menu.name} href={menu.href}>
-                  {menu.name}
-                </NavItem>
-              ))}
+              {menus.map(
+                (menu) =>
+                  ((menu.isAuth && user) || !menu.isAuth) && (
+                    <NavItem key={menu.name} href={menu.href}>
+                      {menu.name}
+                    </NavItem>
+                  ),
+              )}
               <span>|</span>
               <div className="flex items-center gap-2">
                 <Link

@@ -153,3 +153,8 @@ export const handleCheckoutOrder = async (order_id?: string | null) => {
 export const handleClearCart = () => {
   cookies().delete('cart');
 };
+
+export const getCurrentUser = cache(() => {
+  const { getUser } = getKindeServerSession();
+  return getUser();
+});

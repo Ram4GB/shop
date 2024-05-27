@@ -11,4 +11,9 @@ export const menus = [
     name: 'Our Products',
     href: '/#our-products',
   },
+  {
+    name: 'Order',
+    href: '/orders',
+    isAuth: true,
+  },
 ];

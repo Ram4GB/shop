@@ -21,20 +21,23 @@ const MobileMenu: FC<MobileMenuProps> = () => {
         <DrawerContent className="flex md:hidden bg-white flex-col rounded-t-[10px] min-h-screen rounded-none w-screen lg:max-w-[400px] min-w-[350px] fixed bottom-0 right-0 top-0 mt-0">
           <div className="flex flex-col gap-2 px-4">
             <p className="p-4 text-xl font-bold">Menu</p>
-            {menus.map((menu) => (
-              <Link
-                key={menu.name}
-                href={menu.href}
-                className={cn(
-                  buttonVariants({
-                    variant: 'link',
-                  }),
-                  'text-lg text-left block',
-                )}
-              >
-                {menu.name}
-              </Link>
-            ))}
+            {menus.map(
+              (menu) =>
+                ((menu.isAuth && user) || !menu.isAuth) && (
+                  <Link
+                    key={menu.name}
+                    href={menu.href}
+                    className={cn(
+                      buttonVariants({
+                        variant: 'link',
+                      }),
+                      'text-lg text-left block',
+                    )}
+                  >
+                    {menu.name}
+                  </Link>
+                ),
+            )}
             <div className="flex gap-2 pl-2 pt-4">
               <Link
                 href={user ? '/api/auth/logout' : '/api/auth/login'}
