@@ -20,25 +20,23 @@ const CheckoutPage = () => {
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleClickCheckout = () => {
+  const handleClickCheckout = async () => {
     setDisabled(true);
     setLoading(true);
-    handleCheckoutOrder(order_id)
-      .catch((e) => {
-        if (e?.message) {
-          if (e.message === userNotFound) {
-            toast.error('Please login to continue.');
-            window.location.href = '/api/auth/login';
-          }
+    try {
+      const data = await handleCheckoutOrder(order_id);
+      router.push(data?.url ?? '');
+    } catch (error) {
+      if ((error as any)?.message) {
+        if ((error as any)?.message === userNotFound) {
+          toast.error('Please login to continue.');
+          router.push('/api/auth/login');
         }
-      })
-      .then((data) => {
-        router.push(data?.url ?? '');
-      })
-      .finally(() => {
-        setDisabled(false);
-        setLoading(false);
-      });
+      }
+    } finally {
+      setDisabled(false);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -57,7 +55,7 @@ const CheckoutPage = () => {
   return (
     <div className="bg-slate-50">
       <div className="max-w-screen-md mx-auto mt-20 p-4 lg:p-0 py-8 lg:py-14">
-        <h1 className="text-3xl text-slate-700 font-bold mb-4">Checkout Page</h1>
+        <h1 className="text-4xl text-slate-700 font-bold mb-8 text-center">Checkout Page</h1>
         {cart.length > 0 && (
           <p className="mb-2 lg:mb-7 text-slate-700">
             Total Items: {cart.reduce((acc, item) => acc + item.quantity, 0)}

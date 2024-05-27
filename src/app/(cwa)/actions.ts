@@ -81,8 +81,6 @@ export const handleCheckoutOrder = async (order_id?: string | null) => {
 
   const cart = await handleGetCart();
 
-  console.log('order_id', order_id);
-
   let existingOrder: Tables<'orders'> | null = null;
 
   if (order_id) {

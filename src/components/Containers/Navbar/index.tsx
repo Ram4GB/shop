@@ -47,7 +47,7 @@ const Navbar: FC<NavbarProps> = async () => {
                 >
                   {!user ? (
                     <>
-                      Login <LogIn className="ml-1" />
+                      Sign in <LogIn className="ml-1" />
                     </>
                   ) : (
                     <>Logout 🥦</>
