@@ -1,4 +1,5 @@
 import NodejsDark from '@/components/Icons/Logos/NodejsDark';
+import Link from 'next/link';
 import FooterHeading from './FooterHeading';
 import FooterNavLink from './FooterNavLink';
 
@@ -42,6 +43,13 @@ const Footer = () => {
               <FooterNavLink href="/">Blog & News</FooterNavLink>
             </div>
           </div>
+        </div>
+        <div className="mt-6 text-slate-700">
+          © {new Date().getFullYear()}{' '}
+          <Link className="underline underline-offset-2 mr-1" href="https://github.com/Ram4GB">
+            Ram4GB
+          </Link>
+          All rights reserved.
         </div>
       </div>
     </footer>

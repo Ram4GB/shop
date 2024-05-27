@@ -21,7 +21,7 @@ const CartButton: FC<CartButtonProps> = ({ showTotalQuantity = true }) => {
           buttonVariants({
             variant: 'destructive',
           }),
-          'cursor-pointer text-base',
+          'cursor-pointer text-base ',
         )}
       >
         <ShoppingCart

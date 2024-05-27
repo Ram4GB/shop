@@ -50,7 +50,9 @@ const Navbar: FC<NavbarProps> = async () => {
                       Sign in <LogIn className="ml-1" />
                     </>
                   ) : (
-                    <>Logout 🥦</>
+                    <>
+                      Logout <LogIn className="ml-1" />
+                    </>
                   )}
                 </Link>
                 <CartButton />

@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { AppContext } from '@/contexts/AppContext';
 import { Info, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
-import { FC, useContext, useRef, useState } from 'react';
+import { FC, useContext, useRef } from 'react';
 import { toast } from 'sonner';
 
 interface ProductCardProps {
@@ -15,7 +15,6 @@ const ProductCard: FC<ProductCardProps> = ({ item }) => {
   const { handleAddToCart } = useContext(AppContext);
 
   const imageRef = useRef<HTMLImageElement>(null);
-  const [imageHeight, setImageHeight] = useState(0);
 
   const handleShowDetails = () => {
     toast.info('Product Details');
@@ -48,7 +47,7 @@ const ProductCard: FC<ProductCardProps> = ({ item }) => {
         </Button>
         <Button
           onClick={() => {
-            toast.success(`<strong>${item.name}</strong> added to cart 🎉`, { duration: 1000 });
+            toast.success(`<strong>${item.name}</strong> added to your cart 🎉`, { duration: 1000 });
             handleAddToCart(item);
           }}
           variant="default"
