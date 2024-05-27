@@ -53,6 +53,12 @@ export const POST = async (req: Request) => {
         .throwOnError()
         .then((res) => res.data);
 
+      console.log(
+        'event.data.object.customer_details?.email',
+        event.data.object.customer_details?.email,
+        event.data.object,
+      );
+
       if (event.data.object.customer_details?.email) {
         resend.emails.send({
           from: 'leminhcuong2988@yahoo.com.vn',
