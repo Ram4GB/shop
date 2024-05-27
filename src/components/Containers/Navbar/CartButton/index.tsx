@@ -26,7 +26,7 @@ const CartButton: FC<CartButtonProps> = ({ showTotalQuantity = true }) => {
       >
         <ShoppingCart
           className={cn({
-            'mr-1': showTotalQuantity && totalQuantity !== 0,
+            'mr-0.5': showTotalQuantity && totalQuantity !== 0,
           })}
         />
         {showTotalQuantity && totalQuantity !== 0 && <span className="ml-2 inline-block">{totalQuantity}</span>}

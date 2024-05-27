@@ -102,7 +102,7 @@ export const handleCheckoutOrder = async (order_id?: string | null) => {
         .insert({
           kinde_user_id: user.id,
           products: JSON.stringify(cart),
-          total_amount: cart.reduce((acc, item) => acc + item.product.price, 0),
+          total_amount: cart.reduce((acc, item) => acc + item.quantity * item.product.price, 0),
         })
         .throwOnError()
         .select()

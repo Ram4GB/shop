@@ -66,7 +66,7 @@ export default async function Home() {
                       size: 'lg',
                       variant: 'default',
                     }),
-                    'mt-8 mb-8 lg:mb-0',
+                    'mt-8 mb-8 lg:mb-0 text-base',
                   )}
                   href="/#our-products"
                 >

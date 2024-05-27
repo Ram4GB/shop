@@ -11,38 +11,36 @@ export type Database = {
     Tables: {
       orders: {
         Row: {
+          billing_address: Json | null
           created_at: string
           id: number
           kinde_user_id: string | null
           products: Json | null
+          shipping_address: Json | null
           status: Database["public"]["Enums"]["Status"] | null
           total_amount: number | null
         }
         Insert: {
+          billing_address?: Json | null
           created_at?: string
           id?: number
           kinde_user_id?: string | null
           products?: Json | null
+          shipping_address?: Json | null
           status?: Database["public"]["Enums"]["Status"] | null
           total_amount?: number | null
         }
         Update: {
+          billing_address?: Json | null
           created_at?: string
           id?: number
           kinde_user_id?: string | null
           products?: Json | null
+          shipping_address?: Json | null
           status?: Database["public"]["Enums"]["Status"] | null
           total_amount?: number | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "orders_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "products"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       products: {
         Row: {

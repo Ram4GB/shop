@@ -59,7 +59,7 @@ const Navbar: FC<NavbarProps> = async () => {
               </div>
             </div>
             <div className="ml-auto md:hidden flex gap-2">
-              <CartButton showTotalQuantity={false} />
+              <CartButton />
               <MenuButton />
             </div>
           </div>
