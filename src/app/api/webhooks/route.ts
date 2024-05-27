@@ -61,9 +61,9 @@ export const POST = async (req: Request) => {
 
       if (event.data.object.customer_details?.email) {
         resend.emails.send({
-          from: 'leminhcuong2988@yahoo.com.vn',
+          from: 'onboarding@resend.dev',
           to: [event.data.object.customer_details.email],
-          subject: 'Thanks for your order!',
+          subject: '[Ram4GB][YOUR ORDER] Thanks for your order!',
           html: `Your order id is ${order?.id}. Thank you for your order! 🎉`,
         });
       }
