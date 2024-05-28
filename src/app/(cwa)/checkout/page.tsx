@@ -46,13 +46,6 @@ const CheckoutPage = () => {
     if (order_id) {
       localStorage.setItem('order_id', order_id as string);
     }
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }, 1000);
   }, [order_id]);
 
   return (

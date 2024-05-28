@@ -16,10 +16,7 @@ const Page = () => {
       await clearCart?.();
       localStorage.removeItem('order_id');
       toast.success('Order placed successfully 🎉. Check your email for deliver');
-
-      setTimeout(() => {
-        push(redirectUrl);
-      }, 2000);
+      push(redirectUrl);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
