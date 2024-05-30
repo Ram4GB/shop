@@ -7,9 +7,10 @@ import { Input } from '../ui/input';
 
 interface CartItemProps {
   item: Cart;
+  readOnly?: boolean;
 }
 
-const CartItem: FC<CartItemProps> = ({ item }) => {
+const CartItem: FC<CartItemProps> = ({ item, readOnly = false }) => {
   const { handleRemoveFromCart, handleUpdateCart } = useContext(AppContext);
 
   return (
@@ -24,18 +25,21 @@ const CartItem: FC<CartItemProps> = ({ item }) => {
       </div>
       <div className="ml-auto flex">
         <Input
+          readOnly={readOnly}
           min={1}
           value={item.quantity}
           className="max-w-20 text-slate-700 text-base rounded-none focus-visible:ring-0"
           type="number"
           onChange={(e) => handleUpdateCart(item.product, Number(e.target.value))}
         />
-        <button
-          onClick={() => handleRemoveFromCart(item.product)}
-          className={buttonVariants({ variant: 'link', size: 'sm' })}
-        >
-          x
-        </button>
+        {!readOnly && (
+          <button
+            onClick={() => handleRemoveFromCart(item.product)}
+            className={buttonVariants({ variant: 'link', size: 'sm' })}
+          >
+            x
+          </button>
+        )}
       </div>
     </div>
   );

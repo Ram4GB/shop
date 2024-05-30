@@ -158,3 +158,17 @@ export const getCurrentUser = cache(() => {
   const { getUser } = getKindeServerSession();
   return getUser();
 });
+
+export const getOrders = cache(async (page: number, limit: number) => {
+  const user = await getCurrentUser();
+
+  if (!user) return [];
+
+  return supabase
+    .from('orders')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .eq('kinde_user_id', user?.id)
+    .range((page - 1) * limit, (page - 1) * limit + limit - 1)
+    .then(({ data }) => data);
+});

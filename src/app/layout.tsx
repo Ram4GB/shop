@@ -6,6 +6,7 @@ import { handleGetCart } from './(cwa)/actions';
 import './globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`http://${process.env.VERCEL_URL!}`),
   title: 'Coffee Shop',
   description: `Discover Coffee Shop, HCM's cozy coffee shop offering freshly roasted coffee, artisanal drinks, and delicious pastries. Perfect for relaxing, working, or catching up with friends.`,
   openGraph: {
