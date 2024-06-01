@@ -11,7 +11,7 @@ const ProductDetail = async ({ params }: any) => {
   return (
     <div>
       <div className="max-w-screen-lg mx-auto mt-20 p-4 lg:p-0 py-8 lg:py-16">
-        <div className="grid grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           <div className="h-[300px] relative">
             {product.image && (
               <Image className="object-cover w-full h-full rounded-sm" fill src={product.image} alt="" />

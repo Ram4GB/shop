@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 
 export default async function Home() {
+  console.log('server');
   return (
     <>
       <svg className="absolut top-[9999px] left-[9999px] h-0 w-0">
