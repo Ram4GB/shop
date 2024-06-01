@@ -1,5 +1,4 @@
 'use server';
-import { userNotFound } from '@/const';
 import { stripe } from '@/lib/stripe';
 import supabase from '@/lib/supabase';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
@@ -78,7 +77,7 @@ export const handleCheckoutOrder = async (order_id?: string | null) => {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
-    if (!user) return { message: userNotFound, success: false };
+    // if (!user) return { message: userNotFound, success: false };
 
     const cart = await handleGetCart();
 
@@ -100,7 +99,7 @@ export const handleCheckoutOrder = async (order_id?: string | null) => {
       order = await supabase
         .from('orders')
         .insert({
-          kinde_user_id: user.id,
+          kinde_user_id: user?.id,
           products: JSON.stringify(cart),
           total_amount: cart.reduce((acc, item) => acc + item.quantity * item.product.price, 0),
         })
@@ -139,7 +138,7 @@ export const handleCheckoutOrder = async (order_id?: string | null) => {
         allowed_countries: ['US', 'VN'],
       },
       metadata: {
-        userId: user.id,
+        userId: user?.id ?? '',
         orderId: order?.id!,
       },
     });
