@@ -2,13 +2,12 @@
 import { userNotFound } from '@/const';
 import { stripe } from '@/lib/stripe';
 import supabase from '@/lib/supabase';
-import { Product } from '@/mock/products';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
 import { Tables } from '../../../database.types';
 
-export const handleAddToCart = async (product: Product) => {
+export const handleAddToCart = async (product: Tables<'products'>) => {
   const cookiesStore = cookies();
   const cart = await handleGetCart();
 
@@ -40,7 +39,7 @@ export const handleGetCart = () => {
   }
 };
 
-export const handleRemoveFromCart = async (product: Product) => {
+export const handleRemoveFromCart = async (product: Tables<'products'>) => {
   const cookiesStore = cookies();
   const cart = await handleGetCart();
 
@@ -53,7 +52,7 @@ export const handleRemoveFromCart = async (product: Product) => {
   cookiesStore.set('cart', JSON.stringify(cart), { httpOnly: true, secure: true, maxAge: 60 * 60 * 24 * 7 });
 };
 
-export const handleUpdateCart = async (product: Product, quantity: number) => {
+export const handleUpdateCart = async (product: Tables<'products'>, quantity: number) => {
   const cookiesStore = cookies();
   const cart = await handleGetCart();
 
@@ -70,7 +69,8 @@ export const getAllProducts = cache(() =>
   supabase
     .from('products')
     .select('*')
-    .then(({ data }) => data),
+    .order('created_at', { ascending: false })
+    .then(({ data }) => data as Tables<'products'>[]),
 );
 
 export const handleCheckoutOrder = async (order_id?: string | null) => {
@@ -172,3 +172,12 @@ export const getOrders = cache(async (page: number, limit: number) => {
     .range((page - 1) * limit, (page - 1) * limit + limit - 1)
     .then(({ data }) => data);
 });
+
+export const getProductById = cache((id: string) =>
+  supabase
+    .from('products')
+    .select('*')
+    .eq('id', id)
+    .single()
+    .then(({ data }) => data as Tables<'products'>),
+);

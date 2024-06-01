@@ -1,19 +1,18 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { AppContext } from '@/contexts/AppContext';
 import { Info, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
-import { FC, useContext, useRef } from 'react';
+import { FC, useRef } from 'react';
 import { toast } from 'sonner';
 
 interface ProductCardProps {
   item?: any;
+  addToCart?: (item: any) => void;
+  viewDetails?: (item: any) => void;
 }
 
-const ProductCard: FC<ProductCardProps> = ({ item }) => {
-  const { handleAddToCart } = useContext(AppContext);
-
+const ProductCard: FC<ProductCardProps> = ({ item, addToCart, viewDetails }) => {
   const imageRef = useRef<HTMLImageElement>(null);
 
   const handleShowDetails = () => {
@@ -42,17 +41,10 @@ const ProductCard: FC<ProductCardProps> = ({ item }) => {
       </CardFooter>
 
       <div className="bg-white sm:absolute sm:bottom-0 sm:translate-y-full group-hover:translate-y-0 sm:opacity-0 group-hover:opacity-100 w-full px-2 sm:p-4 pt-0 pb-4 flex justify-center items-center transition-all duration-200 gap-2">
-        <Button onClick={() => handleShowDetails()} variant="outline" className="py-4 rounded-full">
+        <Button onClick={() => viewDetails?.(item)} variant="outline" className="py-4 rounded-full">
           <Info />
         </Button>
-        <Button
-          onClick={() => {
-            toast.success(`<strong>${item.name}</strong> added to your cart 🎉`, { duration: 1000 });
-            handleAddToCart(item);
-          }}
-          variant="default"
-          className="py-4 rounded-full"
-        >
+        <Button onClick={() => addToCart?.(item)} variant="default" className="py-4 rounded-full">
           <ShoppingCart />
         </Button>
       </div>

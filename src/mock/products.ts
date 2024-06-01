@@ -6,6 +6,7 @@ import coffeMocha from 'public/image/mock/products/coffee-mocha.png';
 import croissant from 'public/image/mock/products/croissant.jpeg';
 import pannaCotta from 'public/image/mock/products/panna-cotta.jpg';
 import nitroBeer from 'public/image/mock/products/what-is-nitro-beer.jpg';
+import { Tables } from '../../database.types';
 
 export interface Product {
   id: string;
@@ -15,7 +16,7 @@ export interface Product {
 }
 
 export interface Cart {
-  product: Product;
+  product: Tables<'products'>;
   quantity: number;
 }
 

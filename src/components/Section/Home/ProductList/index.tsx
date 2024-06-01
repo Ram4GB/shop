@@ -1,8 +1,8 @@
 import { getAllProducts } from '@/app/(cwa)/actions';
-import ProductCard from '@/components/Commons/ProductCard';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Link } from 'lucide-react';
+import ProductContainer from './ProductContainer';
 
 const ProductList = async () => {
   const products = await getAllProducts();
@@ -10,7 +10,7 @@ const ProductList = async () => {
   return (
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
-        {products?.map((product) => <ProductCard key={product.id} item={product} />)}
+        <ProductContainer products={products} />
       </div>
       {products && products.length > 8 && (
         <div className="text-center">
