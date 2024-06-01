@@ -30,7 +30,7 @@ export default async function RootLayout({
         position="top-center"
         richColors
         duration={2000}
-        style={{ ...recursive.style }}
+        style={{ ...recursive.style, fontSize: '1rem' }}
         toastOptions={{ style: {} }}
       />
     </html>

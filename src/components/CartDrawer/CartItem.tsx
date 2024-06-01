@@ -16,12 +16,14 @@ const CartItem: FC<CartItemProps> = ({ item, readOnly = false }) => {
   return (
     <div className="flex items-center">
       <div className="w-16 aspect-square relative">
-        <Image src={item.product.image} alt="" fill className="w-full h-full rounded-sm object-cover" />
+        {item.product.image && (
+          <Image src={item.product.image} alt="" fill className="w-full h-full rounded-sm object-cover" />
+        )}
       </div>
       <div className="ml-2">
         <p className="text-slate-700 font-bold text-base text-left">{item.product.name}</p>
         <p className="text-base text-slate-700 text-left">x {item.quantity}</p>
-        <p className="text-base text-slate-700 text-left">= {item.quantity * item.product.price}.00$</p>
+        <p className="text-base text-slate-700 text-left">= {item.quantity * (item.product.price || 0)}.00$</p>
       </div>
       <div className="ml-auto flex">
         <Input
