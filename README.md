@@ -1,6 +1,6 @@
 # Small Coffee Shop
 
-This is a Next.js project bootstrapped with `create-next-app`.
+This workspace appears to be for a small coffee shop web application built with Next.js and styled with Tailwind CSS.
 
 ## Getting Started
 
@@ -9,6 +9,28 @@ First, run the development server:
 ```bash
 npm run dev
 ```
+
+## Image
+
+### Full page
+
+![alt](./docs/full-page.png)
+
+### Cart drawer
+
+![alt](./docs/cart-drawer.png)
+
+### Checkout page
+
+![alt](./docs/checkout.png)
+
+### Stripe payment
+
+![alt](./docs/stripe.png)
+
+### Order page (Login only)
+
+![alt](./docs/order.png)
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

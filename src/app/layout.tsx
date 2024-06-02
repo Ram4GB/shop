@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: ['/logo.png'],
   },
+  category: 'Coffee Shop',
 };
 
 export default async function RootLayout({
